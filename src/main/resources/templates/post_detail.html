@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+<th:block layout:fragment="head">
+    <title>Spring Boot</title>
+    <link th:href="@{/css/post_detail.css}" rel="stylesheet" />
+    <link th:href="@{/css/home.css}" rel="stylesheet" />
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</th:block>
+<body>
+<th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+<body>
+<div class="wrap">
+    <!-- 게시글 -->
+    <div id="title">
+        <h2>[[${post.title}]]</h2>
+    </div>
+    <span th:if="${post.pub == 'f'}" th:text="비공개게시물입니다." style="color: #ff0000"></span>
+    <div class="content-body">
+        <span th:text="|글쓴이 : ${post.writer}|"></span>
+        <span th:text="|조회수 : ${post.getVisitPost()}|"></span>
+        <span  th:text="${#temporals.format(post.postDate, 'yyyy-MM-dd')}"></span><br>
+        <div class="content" style="white-space: pre-line;" th:text="${post.content}"></div>
+        <div th:each="postFileList : ${postFileList}">
+            <img style="height: 100px; width: 100px;" th:src="@{/files/}+${postFileList.fileName}" alt="이미지가 없ㅅ븝니다">
+        </div>
+    </div>
+    <!--            추천-->
+    <div class="content-footer">
+        <button id="voteBtn">
+            추천
+            <div id="likeNum" th:text="${post.likeNum}">추천</div>
+        </button>
+        <a th:if="${session.loginId == post.writer}" th:text="수정하기"
+           th:href="@{|/post/modify/${post.bno}|}">수정하기</a>
+        <a th:if="${session.loginId == post.writer}" th:text="삭제하기"
+           th:href="@{|/post/delete/${post.bno}|}">삭제하기</a>
+    </div><br>
+    <h5 th:text="|${#lists.size(post.replyList)}개의 댓글 있습니다.|"></h5>
+    <div class="commentDiv" th:each="reply, replyStat : ${post.replyList}">
+    <!--     댓글의 갯수 표시-->
+    <!-- 댓글 반복 시작 -->
+        <div id="commentBox">
+            <span th:text="|${reply.replyId}님의 댓글|" id="replyId"></span>
+            <span id="replyDate" th:text="${#temporals.format(reply.replyDate, 'yyyy-MM-dd')}"></span>
+            <div th:value="|rno${reply.rno}|" th:id="${replyStat.index}" style="display: none">[[${reply.rno}]]
+            </div>
+            <div class="comment" th:text="${reply.content}" th:id="|reply${replyStat.index}|"></div>
+            <div th:if="${session.loginId == reply.replyId}">
+                <button class="modiBtn" th:id="${replyStat.index}"> 댓글 수정</button>
+            </div>
+        </div>
+        <!--댓글수정-->
+        <div th:id="|modifyF${replyStat.index}|" class="moF">
+            <textarea rows="3" class="replyModiText" th:id="|modifyReply${replyStat.index}|" name="modifyContent"
+                      placeholder="댓글"
+                      th:value="${reply.content}">[[${reply.content}]]</textarea>
+            <button type="button" class="modifyBtn">수정완료</button>
+        </div>
+        <!--수정완료-->
+
+    </div>
+    <!--     댓글 반복 끝-->
+    <!--     댓글 작성-->
+    <form th:action="@{|/reply/create/${post.bno}|}" method="post" id="replyForm">
+        <textarea rows="5" class="replyText" id="replyContent" name="content"
+                  placeholder="댓글"></textarea>
+        <input type="button" value="댓글등록" onclick="replyFun()" class="replyBtn" id="replyBtn">
+    </form>
+</div>
+</body>
+</html>
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    let loginId = /*[[${session.loginId}]]*/
+    var bno = /*[[${post.bno}]]*/
+    var a = 0;
+
+    $(function () {
+
+        $('.moF').hide()
+    })
+
+    $('#replyBtn').on('click', function () {
+        if ($('#replyContent').val() == '') {
+            alert('내용을 입력하세요')
+        } else {
+            replyFun()
+        }
+    })
+
+    function replyFun() {
+        if (loginId != null) {
+            $('#replyBtn').attr('type', 'submit')
+        } else {
+            alert('로그인하세요')
+            $('#replyForm').attr({
+                action: '/login',
+                method: 'get'
+            })
+            $('#replyBtn').attr('type', 'submit')
+        }
+    }
+
+    //수정버튼 누르면 폼태그 액션 수정하는 데로 이동, 버튼 타입 서브밋으로 변경
+    $('#listBtn').on('click', function () {
+
+        $('#postDetailForm').attr('action', '/post/list')
+        $('#listBtn').attr('type', 'submit')
+    })
+
+    //댓글 수정 버튼 누르면 수정폼 뜨게
+    $('.modiBtn').on('click', function () {
+        let idx = $(this).attr('id')
+        a = idx;
+        // alert(a)
+        $('#modifyF' + idx).show()
+    })
+
+    $('.modifyBtn').on('click', function () {
+
+        let content = $('#modifyReply' + a).val();
+        let rno = $('#' + a).text()
+
+        $.ajax({
+            url: '/reply/modify/' + rno,
+            type: 'post',
+            data: {
+                content: content,
+                rno: rno,
+                bno: bno
+            },
+            success: function (cnt) {
+                alert('댓글 수정 완료')
+                $('.moF').hide()
+                $('#reply' + a).text(content)
+            },
+            error: function(xhr, status, error){
+                console.log(status, error);
+            }
+        })
+    })
+
+    $('#voteBtn').on('click', function () {
+
+        let likeNum = parseInt($('#likeNum').text())
+        $.ajax({
+
+            url: '/post/vote',
+            type: 'post',
+            data: {
+                bno: bno
+            },
+            success: function (cnt) {
+                if (cnt == 1) { //좋아요 없으면
+                    $('#likeNum').text(likeNum + 1)
+                } else {
+                    $('#likeNum').text(likeNum - 1)
+                }
+            },
+
+            error: function () {
+                alert("에러입니다.")
+            }
+        })
+    })
+
+    $('.recommend').click(function () {
+        if (confirm("정말로 추천하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+    $("#voteBtn").on('click', function () {
+        if (loginId == null) {
+            alert('로그인 후 사용하세요')
+            location.replace('/login')
+        }
+    })
+    /*]]>*/
+</script>
+

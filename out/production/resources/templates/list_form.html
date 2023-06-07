@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+<th:block layout:fragment="head">
+    <title>Spring Boot</title>
+    <link th:href="@{/css/postList.css}" rel="stylesheet" />
+    <link th:href="@{/css/home.css}" rel="stylesheet" />
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</th:block>
+<body>
+<th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+<body>
+<form th:action="@{/post/search}" method="post" id="searchForm">
+    <div class="searchDiv">
+            <input type="text" class="searchSpot" placeholder="지역이름으로 검색하세요" name="visitSpot" id="visitSpot">
+            <button type="button" id="searchBtn">검색</button>
+    </div>
+</form>
+<table class="table">
+    <thead class="table-dark">
+    <tr>
+        <th style="width: 15%;">방문지역</th>
+        <th style="width: 60%; text-align: left">제목</th>
+        <th style="width: 10%;">작성일시</th>
+        <th style="width: 15%;">작성자</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post, loop : ${paging}">
+        <td th:text="${post.visitSpot}"></td>
+        <td style="text-align: left">
+            <a  th:href="@{|/post/detail/${post.bno}|}" th:text="${post.title}" ></a>
+            <span class-="text-danger small ms-2"
+                  th:if="${#lists.size(post.replyList) > 0}"
+                  th:text="${#lists.size(post.replyList)}">
+            </span>
+        </td>
+        <td th:text="${#temporals.format(post.postDate, 'yyyy-MM-dd')}"></td>
+        <td th:text="${post.writer}"></td>
+    </tr>
+    </tbody>
+</table>
+<!--페이징 처리 시작!-->
+<div th:if="${!paging.isEmpty()}"> <!-- 다음 페이지가 있으면-->
+    <ul class="pagination justify-content-center">
+        <li th:classappend="${!paging.hasPrevious()}? 'disabled'"> <!--이전 페이지 없으면 비활성화-->
+            <a th:href="@{|?page=0|}">
+                <span>처음</span>
+            </a><!--이전 페이지 링크-->
+        </li>
+        <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+            th:if="${page >= paging.number-5 and page <= paging.number+5}"
+            th:classappend="${page == paging.number} ? 'active'"
+            class="page-item">
+            <a th:text="${page + 1}" class="page-link" th:href="@{|?page=${page}|}"></a>
+        </li>
+        <li th:classappend="${!paging.hasNext()} ? 'disabled'">
+            <a th:href="@{|?page=${paging.number+1}|}">
+                <span>다음</span>
+            </a>
+        </li>
+        <li th:classappend="${!paging.hasNext()} ? 'disabled'">
+            <a th:href="@{|?page=${paging.totalPages -1}|}">
+                <span>끝</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<!--페이징 끗-->
+<!--로그인 했으면 내 일정 보러, 안했으면 로그인으로 가기-->
+<form th:action="@{/mySchedule}" method="get" id="writeForm">
+    <button type="button" onclick="btnFunc()" class="btn btn-primary" id="write">글쓰기</button>
+</form>
+
+</body>
+</html>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let loginId = /*[[${session.loginId}]]*/
+        /*]]>*/
+    function btnFunc() {
+        if (loginId != null) {
+            $('#write').attr('type', 'submit')
+        } else {
+            $('#writeForm').attr('action', '/login')
+            $('#write').attr('type', 'submit')
+        }
+    }
+
+    //지역명 검색
+
+    let spot = $('#search').val();
+
+    $('#searchBtn').on('click', function (){
+        if (spot == "" ){
+            alert('검색내용을 입력하세요')
+        } else{
+            $('#searchBtn').attr('type', 'submit')
+        }
+    })
+
+
+
+</script>

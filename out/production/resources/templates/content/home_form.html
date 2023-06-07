@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+<th:block layout:fragment="head">
+    <title>Spring Boot</title>
+    <link th:href="@{/css/home.css}" rel="stylesheet" />
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/home.js}"></script>
+</th:block>
+<body>
+<th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+<div layout:fragment="content" class="content">
+<div id="wrap">
+    <form th:action="@{/makeSchedule}" method="post">
+        <div id="travel">
+            <img src="../img/여름바다_UHD.jpg" alt="사진">
+            <div id="goDate">
+                <div class="label">날짜선택</div>
+                <input type="date" id="startDate" onchange="dateFun()" name="startDate">
+            </div>
+            <div id="spot">
+                <div class="label">장소선택</div>
+                <div class="search_boxes">
+                    <div class="search_box">
+                        <select name="city" id="city" onchange="categoryChange(this)">
+                            <option value>시/도 선택</option>
+                            <option value="1">서울특별시</option>
+                            <option value="2">인천광역시</option>
+                            <option value="3">대전광역시</option>
+                            <option value="4">대구광역시</option>
+                            <option value="5">광주광역시</option>
+                            <option value="6">부산광역시</option>
+                            <option value="7">울산광역시</option>
+                            <option value="8">세종특별자치시</option>
+                            <option value="31">경기도</option>
+                            <option value="32">강원도</option>
+                            <option value="33">충청북도</option>
+                            <option value="34">충청남도</option>
+                            <option value="35">경상북도</option>
+                            <option value="36">경상남도</option>
+                            <option value="37">전라북도</option>
+                            <option value="38">전라남도</option>
+                            <option value="39">제주특별자치도</option>
+                        </select>
+                    </div>
+                    <div class="search_box">
+                        <select name="state" id="state">
+                            <option>군/구 선택</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" id="goBtn">여행하기</button>
+    </form>
+    <div id="popList">
+        <div id="popSpot">
+            <h2>인기여행지</h2>
+            <div th:each="entry : ${popSpotImgMap}" class="popPostList">
+                <a th:href="@{|/spot/popSpot/${entry.key}|}" th:text="${entry.key}"></a>
+                <img th:src="${entry.value}">
+            </div>
+        </div>
+        <div id="popPost">
+        <h2>인기게시글</h2>
+            <a th:href="@{/post/list}">글보러가기</a></br>
+            <div id="tblDiv">
+                <table class="popPostListTbl" style="width:90%">
+                    <thead>
+                    <tr>
+                        <th scope="row" style="width:70%">제목</th>
+                        <th scope="row">글쓴이</th>
+                        <th scope="row">조회수</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="popPost: ${popPostList}">
+                        <td><a th:href="@{|/post/detail/${popPost.bno}|}" th:text="${popPost.title}"></a></td>
+                        <td th:text="${popPost.writer}" ></td>
+                        <td th:text="${popPost.visitPost}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" th:value="${session.loginId}" id="loginId">
+</div>
+</body>
+</html>

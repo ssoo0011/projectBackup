@@ -1,0 +1,88 @@
+
+img{
+    margin: auto;
+    display: block;
+    max-height: 15%;
+    max-width: 15%;
+    margin-top: 100px;
+}
+img:hover{
+    cursor: pointer;
+}
+
+#wrap{
+    height: 800px;
+    width: 500px;
+    margin: auto;
+    background-color: white;
+}
+#wrap > span{
+    width: 150px;
+    height: 50px;
+    display: inline-block;
+}
+button {
+    border: none;
+    width: 200px;
+    height: 40px;
+    margin-left: 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    background-color: lightskyblue;
+    color: #fff;
+    font-size: 11px;
+
+}
+button:hover{
+    cursor: pointer;
+    background-color: #61c0ff;
+    color : #ffffff;
+    border: #4ebaff;
+}
+
+[type = 'text'], [type = 'password'] {
+    background-color: #eeecec;
+    height: 40px;
+    width: 200px;
+    border: none;
+    border-radius: 5px;
+}
+select {
+    width:100px;
+    padding:10px;
+    border:1px solid #999;
+    font-family:'Nanumgothic';
+    background-color: #eeecec;;
+    border-radius:3px;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance : none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+select:focus{
+    border: none;
+    outline: 3px solid #F8E4FF;
+}
+option{
+    padding : 10px
+}
+[type="checkbox"] {
+    vertical-align: middle;
+    /* 기존 체크박스 속성 지우기 */
+    appearance: none;
+    border: max(2px, 0.1em) solid gray;
+    border-radius: 30%;
+    width: 2em;
+    height: 2em;
+}
+[type="checkbox"]:checked {
+    border: 0.7em solid lightpink;
+}
+[type="checkbox"]:hover {
+    box-shadow: 0 0 0 max(4px, 0.2em) #eeecec;;
+    cursor: pointer;
+}

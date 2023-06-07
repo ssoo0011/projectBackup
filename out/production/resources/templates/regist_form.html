@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/regist.css}" type="text/css">
+    <title>Title</title>
+</head>
+<body>
+<img src="../img/로고.png" id="home" onclick="home()">
+<form th:action="@{/regist/create}" method="post"  id="registForm">
+    <div id="wrap">
+    <!--일반회원 회원가입창-->
+        <br>
+        <span>이름</span> <input type="text" name="userName"  placeholder="이름" ><br>
+        <span>아이디</span> <input type="text" name="userId" id="userId"  oninput="idCheck()"  placeholder="아이디"><br>
+        <span class="id_ok"></span>
+        <br>
+        <span>비밀번호</span> <input type="password" name="userPw" class="pw1" placeholder="비밀번호" > <br>
+        <span>비밀번호 확인</span> <input type="password" class="pw2" placeholder="비밀번호 확인" oninput="pwConfirm()"><br>
+        <span class="pwCon"></span><br>
+        <span>생년월일</span>
+        <select id="year" name="year" class="birth">
+            <script>
+                for (var i = 2023; i >= 1940; i--) {
+                    document.write("<option>", i, "</option>")
+                }
+            </script>
+        </select>
+        <select id="month" name="month" class="birth">
+            <script>
+                for (var i = 1; i <= 12; i++) {
+                    document.write("<option value= ", i, ">", i, "</option>")
+                }
+            </script>
+        </select>
+        <select id="day" name="day" class="birth">
+            <script>
+                for (var i = 1; i <= 31; i++) {
+                    document.write("<option value= ", i, ">", i, "</option>")
+                }
+            </script>
+        </select>
+        <br>
+        <span> </span><button type="button" id="regiBtn">회원가입</button>
+    </div>
+</form>
+</body>
+</html>
+<script>
+    function home(){
+        let url = '/home/'
+        location.replace(url)
+    }
+
+    let b1 = false;
+    let b2 = false;
+    //비밀번호 확인
+    function pwConfirm() {
+        if ($('.pw1').val() === $('.pw2').val()) {
+            $('.pwCon').text('비밀번호 일치').css('color', 'green')
+            b1 = true;
+        } else {
+            $('.pwCon').text('비밀번호 불일치').css('color', 'red')
+            b1 = false;
+        }
+    }
+    //아이디 중복검사
+    function idCheck() {
+
+        let id = $('#userId').val();
+        if (id === "" ){
+            $('.id_ok').text("아이디가 너무 짧습니다.")
+                .css('color', 'red')
+                .show();
+        }
+        $.ajax({
+            url: '/regist/idCheck',
+            type:'post',
+            data:{id:id},
+            success:function (cnt){
+                if(cnt != 1 && id != ""){
+                    $('.id_ok').text("사용가능한 아이디")
+                        .css('color', 'green')
+                        .show();
+                    b2 = true;
+                }else if(cnt == 1 && id!= ""){
+                    $('.id_ok').text("사용중인 아이디")
+                        .css('color', 'red')
+                    b2 = false;
+                }
+            },
+            error:function (){
+                alert("에러입니다.")
+            }
+        })
+    }
+
+    $('#regiBtn').click(function(){
+
+        let id = $('#userId').val();
+        let name = $('#userName').val();
+
+        if(b1 && b2 && id != "" && name != ""){
+            alert("회원가입 성공")
+            $('#regiBtn').attr('type', 'submit')
+        }else
+            alert("회원가입 오류")
+            return;
+    })
+
+</script>

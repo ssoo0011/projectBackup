@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+<th:block layout:fragment="head">
+    <title>My Schedule</title>
+    <link th:href="@{/css/home.css}" rel="stylesheet"/>
+    <link th:href="@{/css/postForm.css}" rel="stylesheet"/>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/home.js}"></script>
+</th:block>
+<body>
+<th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+<form th:action="@{/post/create}" method="post" enctype="multipart/form-data">
+    <div id="postBox">
+        <input type="text" id="title" name="title" placeholder="제목"><br>
+        <input type="hidden" name="scdId" th:value="${scdId}">
+
+        <input type="text" id="writer" name="writer" th:placeholder="${session.loginId}"
+               th:value="${session.loginId}" readonly/>
+
+        <input type="text" id="visitSpot" name="visitSpot" th:placeholder="${spot}"
+               th:value="${spot}" readonly/>
+
+        <input type="date" readonly name="visitDate" id="visitDate" th:value="${visitDate}" th:placeholder="${visitDate}"><br>
+        <textarea id="content" name="content" placeholder="내용" rows="36"></textarea><br>
+        <!--        사진올리기-->
+        <label for="imgFile" multiple>사진업로드</label>
+        <input type="file" id="imgFile" name="imgFile" multiple="multiple">
+
+        <label for="content">공개여부</label>
+        <input type="radio" name="pub" value="t" checked>공개</input>
+        <input type="radio" name="pub" value="f">비공개</input>
+        <button type="submit" id="postBtn">게시하기</button>
+    </div>
+</form>
+</body>
+</html>
+<script>
+
+</script>

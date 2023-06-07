@@ -1,0 +1,154 @@
+
+img{
+    width: 330px;
+    height: 180px;
+}
+#showPlace{
+    width: 500px;
+    height: 900px;
+    margin-top: 30px;
+    margin-left: 20px;
+    position: relative;
+    bottom: 1000px;
+    z-index: 3;
+}
+#placeType{
+    position: relative;
+    top: 30px;
+    width: 500px;
+    height: 100px;
+}
+.contentTypeId:hover{
+    background-color: #5ccaff;
+    color : white;
+    font-weight: bold;
+}
+.contentTypeId{
+    width: 100px;
+    height: 40px;
+    position: relative;
+    font-size: 15px;
+    top: 60px;
+    border: solid 1px #f3f3f3;
+    background-color: #f1f1f1;
+    margin-right: -6px;
+}
+#rhks:hover, #tnrqkr:hover, #tlrekd:hover{
+    cursor: pointer;
+    background-color: rgb(101, 196, 255);;
+}
+#place{
+    position: relative;
+    right: 30px;
+    top: 10px;
+    width: 450px;
+    height: 700px;
+    background-color: white;
+    margin: 0 auto;
+    overflow: scroll;
+    border-radius: 7px;
+}
+.placeDetail{
+    width: 420px;
+    height: 300px;
+    margin: 20px 0px 0px 5px;
+    border-radius: 3px;
+    border: solid 1px lightgray;
+}
+.title{
+    font-size: 25px;
+    font-weight: bold;
+}
+.addr1{
+    font-size: 10px;
+}
+.addPlace{
+    float: right;
+    margin: 10px 10px 0px 0px;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(168, 223, 255);
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 1000;
+}
+.addPlace:hover{
+    background-color: rgb(69, 187, 255);
+
+}
+
+#place::-webkit-scrollbar {
+    width: 12px;  /* 스크롤바의 너비 */
+}
+
+#place::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: rgb(104, 199, 255); /* 스크롤바의 색상 */
+
+    border-radius: 10px;
+}
+
+#place::-webkit-scrollbar-track {
+    background: white;  /*스크롤바 뒷 배경 색상*/
+}
+
+#addSchedule{
+    width: 400px;
+    height: 600px;
+    background-color: white;
+    float: right;
+    right: 50px;
+    color: white;
+    font-size: 30px;
+    overflow: scroll;
+    position: relative;
+    bottom: 1800px;
+    right: 20px;
+    z-index: 3;
+}
+#map{
+    width: 1920px;
+    height:1000px;
+}
+.visitSpot{
+    padding-top: 20px;
+    box-sizing: border-box;
+    margin: auto;
+    width: 350px;
+    height: 180px;
+    background-color: #ececec;
+    color: black;
+    border-bottom: 1px solid lightgray;
+    font-size: 13px;
+}
+.visitSpot>img{
+    height: 100px;
+    width: 100px;
+}
+.visitSpot>button{
+    float: right;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(168, 223, 255);
+    border: #eaeaea;
+    color: white;
+    font-size: 13px;
+}
+.visitSpot>button:hover{
+    background-color: rgb(103, 200, 255);
+
+}
+input[type=image]{
+    height: 100px;
+    width: 100px;
+}
+
+.up, .down, .delete{
+    float: right;
+}
+#scheduleSuccess{
+    background-color: rgb(103, 200, 255);
+    color: white;
+    font-size: 17px;
+}

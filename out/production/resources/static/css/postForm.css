@@ -1,0 +1,76 @@
+#postBox{
+    width: 1200px;
+    height: 1080px;
+    margin: 0 auto;
+}
+#title{
+    margin-top: 30px;
+    display: block;
+    width: 1200px;
+    height: 70px;
+    color: #006686;
+    font-size: 30px;
+    border-bottom: solid lightgray 1px;
+    border-right: none;
+    border-top: none;
+    border-left: none;
+    outline: none;
+}
+#writer{
+    display: block;
+    margin: 0 auto;
+    border: none;
+    width: 50px;
+    height: 30px;
+    outline: none;
+    float: right;
+    text-align: right;
+}
+#visitSpot, #visitDate{
+    display: block;
+    margin: 0 auto;
+    border: none;
+    width: 100px;
+    height: 30px;
+    float: right;
+    outline: none;
+}
+textarea{
+    width: 1200px;
+    font-size: 14px;
+    border-bottom: solid lightgray 1px;
+    border-right: none;
+    border-top: none;
+    border-left: none;
+    outline: none;
+}
+[type="radio"] {
+    vertical-align: middle;
+    /* 기존 체크박스 속성 지우기 */
+    appearance: none;
+    border: max(2px, 0.1em) solid gray;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+}
+[type="radio"]:checked {
+    border: 0.5em solid #2eb5fd;
+}
+[type="radio"]:hover {
+    box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+    cursor: pointer;
+}
+#postBtn{
+    width: 90px;
+    height: 35px;
+    color: white;
+    font-weight: 700;
+    border: none;
+    background-color: #7cd8ff;
+    border-radius: 5px;
+    float: right;
+}
+#postBtn:hover{
+    cursor: pointer;
+    background-color: #36c0fd;
+}

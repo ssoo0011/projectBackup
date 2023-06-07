@@ -1,0 +1,110 @@
+.wrap{
+    width: 1200px;
+    height: 1000px;
+    margin: 0 auto;
+}
+#title{
+    width: 1200px;
+    height: 100px;
+    border-bottom: 1px solid lightgray;
+}
+h2{
+    font-size: 40px;
+    font-weight: 400;
+}
+.content-body{
+    width: 1200px;
+    border-bottom: 1px solid lightgray;
+    height: 600px;
+    overflow: auto;
+    margin-top: -10px;
+}
+.content-body > span{
+    margin-top: 20px;
+    width: 100px;
+    color: #999999;
+    font-size: 11px;
+    float: right;
+    text-align: right;
+}
+
+.content{
+    margin-top: 30px;
+
+}
+img{
+    width: 100px;
+    height: 100px;
+}
+.content-footer{
+    margin-bottom: 30px;
+}
+.content-footer>a{
+    text-decoration: none;
+    padding : 7px;
+    background-color: #5ccaff;
+    color: white;
+    border-radius: 5px;
+    margin-top: 20px;
+    float: right;
+    margin-left: 10px;
+}
+#voteBtn{
+    float: left;
+    width: 65px;
+    height: 35px;
+    background-color: white;
+    border-radius: 2px;
+    border: #999999 solid 1px;
+    margin-top: 10px;
+}
+.commentDiv{
+    width: 1200px;
+    margin-top: 20px;
+}
+#commentBox{
+    width: 1200px;
+    height: 120px;
+    background-color: #f3f3f3;
+    padding-top: 15px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+#commentBox>span{
+    color: #7c7c7c;
+    font-size: 11px;
+}
+#replyDate{
+    float: right;
+    margin-right: 20px;
+}
+.comment{
+    margin: 15px 0 10px 0;
+}
+.modiBtn{
+    float: right;
+    margin-right: 20px;
+    text-decoration: underline;
+    border: none;
+    font-size: 13px;
+}
+.replyModiText, .replyText{
+    width: 1200px;
+    border-radius: 5px;
+    border: #999999 solid 1px;
+    padding-top: 15px;
+    padding-left: 15px;
+    box-sizing: border-box;
+}
+.replyBtn, .modifyBtn{
+    width: 80px;
+    height: 30px;
+    background-color: #5ccaff;
+    border-radius: 3px;
+    float: right;
+    color: white;
+    border: none;
+    margin-bottom: 30px;
+}

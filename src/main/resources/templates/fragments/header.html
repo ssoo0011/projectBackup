@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div class="header">
+  <div id="nav">
+    <a id="home" th:href="@{/home/}">Home</a>
+    <div th:if="${session.loginId != null}">
+      <div id="logout"><a th:href="@{/logout}"> Logout </a></div>
+      <div id="userInfor" name=""><a th:href="@{/userInfor}"> My information </a><br></div>
+      <div id="mySchedule" name=""><a th:href="@{/mySchedule}"> My schedule </a><br></div>
+      <h3 id="greeting" th:text="|${session.loginId}님 환영합니다!|"></h3>
+    </div>
+    <div th:unless="${session.loginId != null}">
+      <div id="login"><a th:href="@{/login}">Login</a></br></div>
+      <div id="regist"><a th:href="@{/regist/create}">Join</a></div>
+    </div>
+  </div>
+</div>
+</html>

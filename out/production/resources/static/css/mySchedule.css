@@ -1,0 +1,40 @@
+body{
+    text-align: center;
+}
+span{
+    color: #999999;
+    font-size: 9px;
+}
+.spotImg{
+    width: 12%;
+    height: 50%;
+    border-radius: 100%;
+    margin-left: 20px;
+}
+.visitSpot{
+    position: relative;
+    left: 180px;
+    width: 40%;
+    height: 210px;
+    border-radius: 30px;
+    background: white;
+    box-shadow: 5px 5px 5px 5px #e3e3e3;
+    margin-top: 30px;
+    margin-right: 30px;
+    text-align: center;
+    padding-top: 20px;
+    box-sizing: border-box;
+    float: left;
+}
+.visitSpot:hover{
+    background: #f5f5f5;
+}
+
+.visitSpot>a{
+    font-size: 17px;
+    text-decoration: none;
+    color: #3f86ed;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
